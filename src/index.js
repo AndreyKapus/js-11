@@ -12,7 +12,7 @@ function onFormSubmit(e) {
   const inputQuery = e.currentTarget.elements.searchQuery.value;
 
 
-  fetchPics(inputQuery).then(data => drawPictures(data)).catch(console.log(error))
+  fetchPics(inputQuery).then(data => console.log(data))
 
 }
 
