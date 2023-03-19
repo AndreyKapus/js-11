@@ -1,19 +1,19 @@
 // const axios = require('axios');
-import { fetchPics } from "./fetchPictures/fetchPictures";
+import { PicturesApiService } from "./fetchPictures/fetchPictures";
 
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input[name=searchQuery]');
 const galleryEl = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more')
 
-
+const picturesApiService = new PicturesApiService()
 
 async function onFormSubmit(e) {
   e.preventDefault();
   clearContainer();
-  const inputQuery = e.currentTarget.elements.searchQuery.value;
+ picturesApiService.query = e.currentTarget.elements.searchQuery.value;
 try {
-  const pictures = await fetchPics(inputQuery);
+  const pictures = await picturesApiService.fetchPics();
   checkData(pictures);
  }
 catch (error) {
@@ -55,7 +55,7 @@ function clearContainer() {
 };
 
 function onLoadMore() {
-  
+
 }
 
 formEl.addEventListener('submit', onFormSubmit);
