@@ -3,7 +3,7 @@ import { fetchPics } from "./fetchPictures/fetchPictures";
 
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input[name=searchQuery]');
-const bodyEl = document.querySelector('.body')
+const bodyEl = document.querySelector('body')
 
 
 
@@ -12,7 +12,7 @@ function onFormSubmit(e) {
   const inputQuery = e.currentTarget.elements.searchQuery.value;
 
 
-  fetchPics(inputQuery).then(data => console.log(data))
+  fetchPics(inputQuery).then(drawPictures)
 
 }
 
