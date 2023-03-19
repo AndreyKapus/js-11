@@ -3,43 +3,60 @@ import { fetchPics } from "./fetchPictures/fetchPictures";
 
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input[name=searchQuery]');
-const bodyEl = document.querySelector('body')
+const galleryEl = document.querySelector('.gallery');
+const loadMoreBtnEl = document.querySelector('.load-more')
 
 
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
   e.preventDefault();
+  clearContainer();
   const inputQuery = e.currentTarget.elements.searchQuery.value;
-
-
-  fetchPics(inputQuery).then(drawPictures)
-
+try {
+  const pictures = await fetchPics(inputQuery);
+  checkData(pictures);
+ }
+catch (error) {
+  console.log(error)
+ }
 }
 
 function drawPictures(data) {
   const {hits} = data;
 
-const markup = hits.map(({id, webformatURL, largeImageURL, tags, likes, comments, downloads, views}) => {
+const markup = hits
+.map(({id, webformatURL, largeImageURL, tags, likes, comments, downloads, views}) => {
       return `
       <div>
         <ul>
           <li>
             <img src=${webformatURL} width='300px'/>
-            <div>${likes}</div>
-            <div>${tags}</div>
+            <div><p>Likes: </p> ${likes}</div>
+            <div><p>Tags: </p>${tags}</div>
+            <div><p>Views: </p>${views}</div>
+            <div><p>Downloads: </p>${downloads}</div>
             </li>
         </ul>
       </div>
       `;
   }).join('');
-  bodyEl.insertAdjacentHTML('beforeend', markup)
+  galleryEl.insertAdjacentHTML('beforeend', markup)
 }
 
-// function checkData(data) {
-//   if(data.lenght >= 1) {
-//     drawPictures(data)
-//   }
-//   drawPictures(data)
-// }
+function checkData(data) {
+  if(data.hits <= 1) {
+    alert('"Sorry, there are no images matching your search query. Please try again."')
+  }
+  drawPictures(data)
+};
 
-formEl.addEventListener('submit', onFormSubmit)
+function clearContainer() {
+  galleryEl.innerHTML = '';
+};
+
+function onLoadMore() {
+  
+}
+
+formEl.addEventListener('submit', onFormSubmit);
+loadMoreBtnEl.addEventListener('click', onLoadMore)
