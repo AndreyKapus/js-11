@@ -13,8 +13,10 @@ async function onFormSubmit(e) {
   clearContainer();
  picturesApiService.query = e.currentTarget.elements.searchQuery.value;
 try {
+  picturesApiService.resetPage()
   const pictures = await picturesApiService.fetchPics();
   checkData(pictures);
+
  }
 catch (error) {
   console.log(error)
@@ -54,9 +56,10 @@ function clearContainer() {
   galleryEl.innerHTML = '';
 };
 
-function onLoadMore() {
-  picturesApiService.fetchPics();
-
+async function onLoadMore() {
+  picturesApiService.page += 1;
+  const pictures = await picturesApiService.fetchPics();
+  checkData(pictures)
 }
 
 formEl.addEventListener('submit', onFormSubmit);

@@ -7,12 +7,11 @@ export class PicturesApiService{
     this.page = 1;
   }
 async fetchPics() {
-    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=${this.page}`)
+    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=${this.page}&per_page=5`)
     const getPics = await response.json();
-    this.page += 1
     return getPics;
 
-
+// ----------- With then----------------
 
   //  return fetch(`${API}/?key=${API_KEY}&q=${data}&image_type=photo&orientation=horizontal&safesearch-true`)
   //   .then((res) => {
@@ -22,12 +21,17 @@ async fetchPics() {
   //     return res.json()
   //   })
    };
+
    get query() {
     return this.searchQuery;
   }
 
   set query(newQuery) {
     this.searchQuery = newQuery;
+  }
+
+  resetPage() {
+    this.page = 1
   }
 
  }
