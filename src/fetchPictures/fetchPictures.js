@@ -4,12 +4,12 @@
 export class PicturesApiService{
   constructor() {
     this.searchQuery = '';
-    // this.page = 1;
+    this.page = 1;
   }
 async fetchPics() {
-    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=1`)
+    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=${this.page}`)
     const getPics = await response.json();
-
+    this.page += 1
     return getPics;
 
 

@@ -55,6 +55,7 @@ function clearContainer() {
 };
 
 function onLoadMore() {
+  picturesApiService.fetchPics();
 
 }
 
