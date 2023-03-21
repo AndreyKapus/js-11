@@ -1,6 +1,7 @@
 // const axios = require('axios');
 import { PicturesApiService } from "./fetchPictures/fetchPictures";
 import { LoadMoreBtn } from "./loadMoreBtn/loadMoreBtn";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input[name=searchQuery]');
@@ -15,13 +16,14 @@ const picturesApiService = new PicturesApiService()
 async function onFormSubmit(e) {
   e.preventDefault();
   clearContainer();
+
  picturesApiService.query = e.currentTarget.elements.searchQuery.value;
 try {
   picturesApiService.resetPage()
-
   const pictures = await picturesApiService.fetchPics();
   checkData(pictures);
   loadMoreBtnEl.show()
+  Notify.success(`We found ${pictures.totalHits} pictures`);
  }
 catch (error) {
   console.log(error)
@@ -56,7 +58,6 @@ function checkData(data) {
     alert('"Sorry, there are no images matching your search query. Please try again."')
   }
   drawPictures(data);
-
 };
 
 function clearContainer() {
