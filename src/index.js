@@ -29,14 +29,15 @@ function drawPictures(data) {
 const markup = hits
 .map(({id, webformatURL, largeImageURL, tags, likes, comments, downloads, views}) => {
       return `
-      <div>
-        <ul>
+      <div class="container">
+        <ul class="imageList">
           <li>
-            <img src=${webformatURL} width='300px'/>
-            <div><p>Likes: </p> ${likes}</div>
-            <div><p>Tags: </p>${tags}</div>
-            <div><p>Views: </p>${views}</div>
-            <div><p>Downloads: </p>${downloads}</div>
+            <img src=${webformatURL} width='300px' height='200px'/>
+              <div class="card-info-wrapper">
+                <div class="card-item"><p>Likes: </p>${likes}</div>
+                <div class="card-item"><p>Comments: </p>${comments}</div>
+                <div class="card-item"><p>Views: </p>${views}</div>
+                <div class="card-item"><p>Downloads: </p>${downloads}</div></div>
             </li>
         </ul>
       </div>

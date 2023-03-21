@@ -7,7 +7,7 @@ export class PicturesApiService{
     this.page = 1;
   }
 async fetchPics() {
-    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=${this.page}&per_page=5`)
+    const response = await fetch(`${API}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch-true&page=${this.page}&per_page=20`)
     const getPics = await response.json();
     return getPics;
 
