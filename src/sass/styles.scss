@@ -21,6 +21,7 @@ body {
   border: none;
   border-radius: 5px;
   margin-right: 15px;
+  padding-left: 10px;
 }
 
 .gallery {
@@ -54,10 +55,16 @@ body {
 .card-info-wrapper {
   display: flex;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
-// .card-item {
-//   &:not(:last-child) {
-//     margin-right: 5px;
-//   }
-// }
+.card-item {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+button.is-hidden {
+  display: none;
+}
