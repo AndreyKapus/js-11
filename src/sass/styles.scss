@@ -27,6 +27,7 @@ body {
 .gallery {
   display: flex;
   justify-content: center;
+  gap: 15px;
   align-items: center;
   flex-wrap: wrap;
   margin-left: auto;
@@ -38,6 +39,7 @@ body {
 
 .imageList {
   list-style: none;
+
 }
 
 .btn-wrapper {
@@ -50,6 +52,7 @@ body {
   border: none;
   border-radius: 5px;
   background-color: #F0F8FF;
+  cursor: pointer;
 }
 
 .card-info-wrapper {
@@ -67,4 +70,30 @@ body {
 
 button.is-hidden {
   display: none;
+}
+
+.gallery-link {
+  text-decoration: none;
+  color: black;
+
+}
+
+.card-title {
+  font-weight: 500;
+}
+
+.list-item {
+  padding: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.load-more {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #FF8C00;
+  border: none;
+  cursor: pointer;
 }

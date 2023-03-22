@@ -2,6 +2,8 @@
 import { PicturesApiService } from "./fetchPictures/fetchPictures";
 import { LoadMoreBtn } from "./loadMoreBtn/loadMoreBtn";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input[name=searchQuery]');
@@ -10,6 +12,11 @@ const loadMoreBtnEl = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
   hidden: true,
 });
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionsDelay: 250,
+})
 
 const picturesApiService = new PicturesApiService()
 
@@ -37,16 +44,20 @@ const markup = hits
 .map(({id, webformatURL, largeImageURL, tags, likes, comments, downloads, views}) => {
       return `
       <div class="container">
-        <ul class="imageList">
-          <li>
-            <img src=${webformatURL} width='300px' height='200px'/>
-              <div class="card-info-wrapper">
-                <div class="card-item"><p>Likes</p>${likes}</div>
-                <div class="card-item"><p>Comments</p>${comments}</div>
-                <div class="card-item"><p>Views</p>${views}</div>
-                <div class="card-item"><p>Downloads</p>${downloads}</div></div>
-            </li>
-        </ul>
+        <div class="imageList">
+          <a class="gallery-link" href="${largeImageURL}">
+          <div class="list-item">
+          <img src=${webformatURL} width='300px' height='200px'/>
+            <div class="card-info-wrapper">
+              <div class="card-item"><p class="card-title">Likes</p>${likes}</div>
+              <div class="card-item"><p class="card-title">Comments</p>${comments}</div>
+              <div class="card-item"><p class="card-title">Views</p>${views}</div>
+              <div class="card-item"><p class="card-title">Downloads</p>${downloads}</div></div>
+          </div>
+          </a>
+
+
+        </div>
       </div>
       `;
   }).join('');
@@ -58,6 +69,7 @@ function checkData(data) {
     alert('"Sorry, there are no images matching your search query. Please try again."')
   }
   drawPictures(data);
+  lightbox.refresh();
 };
 
 function clearContainer() {
@@ -70,6 +82,7 @@ async function onLoadMore() {
   const pictures = await picturesApiService.fetchPics();
   checkData(pictures);
   loadMoreBtnEl.enable()
+
 }
 
 formEl.addEventListener('submit', onFormSubmit);
